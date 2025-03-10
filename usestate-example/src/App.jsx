@@ -1,25 +1,20 @@
-
+import { useEffect, useState } from 'react'
 import './App.css'
-import { useState } from 'react'
 
 function App() {
   const [count, setCount] = useState(0)
 
-  function incrCount(){
-    // setCount(count + 1);  //don't do this
-    setCount((prev) => prev + 1);  //do this
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCount(count => count + 1);
+    }, 1000);
 
-  function decrCount(){
-    setCount((prev) => prev - 1)
-  }
-
+    return () => clearTimeout(timer);
+  }, [])
 
   return (
     <>
-      <h1>The value of {count}</h1>
-      <button onClick={incrCount}>increase</button>
-      <button onClick={decrCount}>decrease</button>
+      <h1>I have rendered {count} times</h1>
     </>
   )
 }
